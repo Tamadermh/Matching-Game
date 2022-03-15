@@ -4,7 +4,7 @@ const stars = document.querySelectorAll("#heart li");
 const moves = document.querySelector("#moves");
 const timer = document.querySelector("#timer");
 const restart = document.querySelector("#restart"); 
-const cards = document.querySelectorAll("#dack li");
+const cards = document.querySelectorAll("#deck li");
 let arr = Array.from(cards);
 let openCards =[];
 let movesCounter =0;
@@ -23,18 +23,18 @@ function shuffle(array) {
         array[currentIndex] = array[randomIndex];
         array[randomIndex] = temporaryValue;
     }
-
-     return array;
+ 
+    return array;
 }
 // event listeners
 deck.addEventListener("click",function(event){
     console.log(event.target);
     if (validClick(event.target)){
         if(timerOut){
-            //initTime();
+            initTime();
         }
         event.target.classList.add("open");
-        openCards.push(event,target);
+        openCards.push(event.target);
         if(openCards.length==2){
             checkMatch();
             addMove();
@@ -54,7 +54,7 @@ function validClick(card){
 }
 function checkMatch(){
     console.log(openCards[0].children,"card1");
-    if(openCards[0].children[0].calssName=== openCards[1].children[0].calssName){
+    if(openCards[0].children[0].className=== openCards[1].children[0].className){
         openCards[0].classList.add("match");
         openCards[1].classList.add("match");
         openCards=[];
@@ -75,7 +75,7 @@ function checkMatch(){
     }
 }
 function win(){
-    alert('win')
+    alert('you win \nCongrats')
     resetGame()
 }
 function addMove(){
@@ -122,3 +122,19 @@ function reShuffle(){
         deck.appendChild(item);
     }
 }
+function initTime(){
+    timerOut=false ;
+    timerId=setInterval(()=>{
+        time++;
+        timerCount();
+    },1000);
+}
+const timerCount = ()=>{
+    const min =Math.floor(time/60);
+    const sec = time %60;
+    if (sec <10){
+        timer.innerHTML = `${min}:0${sec}`;
+    } else {
+        timer.innerHTML = `${min}:0${sec}`;
+    }
+};
