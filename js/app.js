@@ -24,7 +24,7 @@ function shuffle(array) {
         array[randomIndex] = temporaryValue;
     }
 
-    return array;
+     return array;
 }
 // event listeners
 deck.addEventListener("click",function(event){
